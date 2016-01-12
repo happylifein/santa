@@ -26,6 +26,52 @@ function santablock_block_view($delta = '') {
 }
 
 function _santablock_BLOCK_ABC_CONTENT() {
-    $output = t('Hello world');
+    $output = drupal_get_form('home_page_post_form');
     return $output;
+}
+
+function home_page_post_form($form, &$form_state) {
+    $form = array();
+    $form['txt_title'] = array(
+      '#title' => t('Post title'),
+      '#type' => 'textfield',
+      );
+    $form['txt_desc'] = array(
+      '#title' => t('Post description'),
+      '#type' => 'textarea',
+      );
+    $form['captcha'] = array(
+      '#type' => 'captcha',
+      '#captcha_type' => 'captcha/Math',
+      );
+    $form['submit'] = array(
+      '#type' => 'submit',
+      '#value' => t('Submit'),
+      );
+    return $form;
+}
+
+/**
+ * form submit process
+ */
+
+function home_page_post_form_submit($form, &$form_state) {
+    global $user;
+    $uid = $user->uid;
+    $txt_title = $form_state['values']['txt_title'];
+    $txt_descr = $form_state['values']['txt_desc'];
+    $newNode = (object) NULL;
+    $newNode->message = $txt_descr;
+    $newNode->title = $txt_title;
+    $newNode->type = 'page';
+    $newNode->uid = $uid;
+    $newNode->created = strtotime("now");
+    $newNode->changed = strtotime("now");
+    $newNode->status = 1;
+    $newNode->comment = 0;
+    $newNode->promote = 0;
+    $newNode->moderate = 0;
+    $newNode->sticky = 0;
+    $newNode->language = 'und';
+    node_save($newNode);
 }
