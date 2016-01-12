@@ -4,32 +4,28 @@
 * Implements hook_block_info().
 */
 function santablock_block_info() {
-  $blocks = array();
-
-  $blocks['post'] = array(
-    'info' => t('Santa Post'),
-  );
-
-  return $blocks;
+    $blocks = array();
+    $blocks['home_page_post'] = array(
+      'info' => t('Santa Home Page Post'),
+      );
+    return $blocks;
 }
 
 /**
 * Implements hook_block_view().
 */
 function santablock_block_view($delta = '') {
-  $block = array();
-
-  switch ($delta) {
-    case 'post':
-      $block['subject'] = '';
-      $block['content'] = _santablock_BLOCK_ABC_CONTENT();
-      break;
-  }
-
-  return $block;
+    $block = array();
+    switch ($delta) {
+        case 'home_page_post':
+            $block['subject'] = '';
+            $block['content'] = _santablock_BLOCK_ABC_CONTENT();
+            break;
+    }
+    return $block;
 }
 
 function _santablock_BLOCK_ABC_CONTENT() {
-  $output = t('Hello world');
-  return $output;
+    $output = t('Hello world');
+    return $output;
 }

@@ -12,7 +12,6 @@
  * containing replacement user_hash_password(), user_check_password(), and
  * user_needs_new_hash() functions.
  */
-
 /**
  * The standard log2 number of iterations for password stretching. This should
  * increase by 1 every Drupal version in order to counteract increases in the
@@ -39,7 +38,7 @@ define('DRUPAL_HASH_LENGTH', 55);
  * Returns a string for mapping an int to the corresponding base 64 character.
  */
 function _password_itoa64() {
-  return './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    return './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 }
 
 /**
@@ -54,30 +53,30 @@ function _password_itoa64() {
  *   Encoded string
  */
 function _password_base64_encode($input, $count) {
-  $output = '';
-  $i = 0;
-  $itoa64 = _password_itoa64();
-  do {
-    $value = ord($input[$i++]);
-    $output .= $itoa64[$value & 0x3f];
-    if ($i < $count) {
-      $value |= ord($input[$i]) << 8;
-    }
-    $output .= $itoa64[($value >> 6) & 0x3f];
-    if ($i++ >= $count) {
-      break;
-    }
-    if ($i < $count) {
-      $value |= ord($input[$i]) << 16;
-    }
-    $output .= $itoa64[($value >> 12) & 0x3f];
-    if ($i++ >= $count) {
-      break;
-    }
-    $output .= $itoa64[($value >> 18) & 0x3f];
-  } while ($i < $count);
+    $output = '';
+    $i = 0;
+    $itoa64 = _password_itoa64();
+    do {
+        $value = ord($input[$i++]);
+        $output .= $itoa64[$value & 0x3f];
+        if ($i < $count) {
+            $value |= ord($input[$i]) << 8;
+        }
+        $output .= $itoa64[($value >> 6) & 0x3f];
+        if ($i++ >= $count) {
+            break;
+        }
+        if ($i < $count) {
+            $value |= ord($input[$i]) << 16;
+        }
+        $output .= $itoa64[($value >> 12) & 0x3f];
+        if ($i++ >= $count) {
+            break;
+        }
+        $output .= $itoa64[($value >> 18) & 0x3f];
+    } while ($i < $count);
 
-  return $output;
+    return $output;
 }
 
 /**
@@ -97,15 +96,15 @@ function _password_base64_encode($input, $count) {
  *   A 12 character string containing the iteration count and a random salt.
  */
 function _password_generate_salt($count_log2) {
-  $output = '$S$';
-  // Ensure that $count_log2 is within set bounds.
-  $count_log2 = _password_enforce_log2_boundaries($count_log2);
-  // We encode the final log2 iteration count in base 64.
-  $itoa64 = _password_itoa64();
-  $output .= $itoa64[$count_log2];
-  // 6 bytes is the standard salt for a portable phpass hash.
-  $output .= _password_base64_encode(drupal_random_bytes(6), 6);
-  return $output;
+    $output = '$S$';
+    // Ensure that $count_log2 is within set bounds.
+    $count_log2 = _password_enforce_log2_boundaries($count_log2);
+    // We encode the final log2 iteration count in base 64.
+    $itoa64 = _password_itoa64();
+    $output .= $itoa64[$count_log2];
+    // 6 bytes is the standard salt for a portable phpass hash.
+    $output .= _password_base64_encode(drupal_random_bytes(6), 6);
+    return $output;
 }
 
 /**
@@ -119,14 +118,14 @@ function _password_generate_salt($count_log2) {
  *   Integer within set bounds that is closest to $count_log2.
  */
 function _password_enforce_log2_boundaries($count_log2) {
-  if ($count_log2 < DRUPAL_MIN_HASH_COUNT) {
-    return DRUPAL_MIN_HASH_COUNT;
-  }
-  elseif ($count_log2 > DRUPAL_MAX_HASH_COUNT) {
-    return DRUPAL_MAX_HASH_COUNT;
-  }
+    if ($count_log2 < DRUPAL_MIN_HASH_COUNT) {
+        return DRUPAL_MIN_HASH_COUNT;
+    }
+    elseif ($count_log2 > DRUPAL_MAX_HASH_COUNT) {
+        return DRUPAL_MAX_HASH_COUNT;
+    }
 
-  return (int) $count_log2;
+    return (int) $count_log2;
 }
 
 /**
@@ -150,50 +149,50 @@ function _password_enforce_log2_boundaries($count_log2) {
  *   The return string will be truncated at DRUPAL_HASH_LENGTH characters max.
  */
 function _password_crypt($algo, $password, $setting) {
-  // Prevent DoS attacks by refusing to hash large passwords.
-  if (strlen($password) > 512) {
-    return FALSE;
-  }
-  // The first 12 characters of an existing hash are its setting string.
-  $setting = substr($setting, 0, 12);
+    // Prevent DoS attacks by refusing to hash large passwords.
+    if (strlen($password) > 512) {
+        return FALSE;
+    }
+    // The first 12 characters of an existing hash are its setting string.
+    $setting = substr($setting, 0, 12);
 
-  if ($setting[0] != '$' || $setting[2] != '$') {
-    return FALSE;
-  }
-  $count_log2 = _password_get_count_log2($setting);
-  // Hashes may be imported from elsewhere, so we allow != DRUPAL_HASH_COUNT
-  if ($count_log2 < DRUPAL_MIN_HASH_COUNT || $count_log2 > DRUPAL_MAX_HASH_COUNT) {
-    return FALSE;
-  }
-  $salt = substr($setting, 4, 8);
-  // Hashes must have an 8 character salt.
-  if (strlen($salt) != 8) {
-    return FALSE;
-  }
+    if ($setting[0] != '$' || $setting[2] != '$') {
+        return FALSE;
+    }
+    $count_log2 = _password_get_count_log2($setting);
+    // Hashes may be imported from elsewhere, so we allow != DRUPAL_HASH_COUNT
+    if ($count_log2 < DRUPAL_MIN_HASH_COUNT || $count_log2 > DRUPAL_MAX_HASH_COUNT) {
+        return FALSE;
+    }
+    $salt = substr($setting, 4, 8);
+    // Hashes must have an 8 character salt.
+    if (strlen($salt) != 8) {
+        return FALSE;
+    }
 
-  // Convert the base 2 logarithm into an integer.
-  $count = 1 << $count_log2;
+    // Convert the base 2 logarithm into an integer.
+    $count = 1 << $count_log2;
 
-  // We rely on the hash() function being available in PHP 5.2+.
-  $hash = hash($algo, $salt . $password, TRUE);
-  do {
-    $hash = hash($algo, $hash . $password, TRUE);
-  } while (--$count);
+    // We rely on the hash() function being available in PHP 5.2+.
+    $hash = hash($algo, $salt . $password, TRUE);
+    do {
+        $hash = hash($algo, $hash . $password, TRUE);
+    } while (--$count);
 
-  $len = strlen($hash);
-  $output =  $setting . _password_base64_encode($hash, $len);
-  // _password_base64_encode() of a 16 byte MD5 will always be 22 characters.
-  // _password_base64_encode() of a 64 byte sha512 will always be 86 characters.
-  $expected = 12 + ceil((8 * $len) / 6);
-  return (strlen($output) == $expected) ? substr($output, 0, DRUPAL_HASH_LENGTH) : FALSE;
+    $len = strlen($hash);
+    $output = $setting . _password_base64_encode($hash, $len);
+    // _password_base64_encode() of a 16 byte MD5 will always be 22 characters.
+    // _password_base64_encode() of a 64 byte sha512 will always be 86 characters.
+    $expected = 12 + ceil((8 * $len) / 6);
+    return (strlen($output) == $expected) ? substr($output, 0, DRUPAL_HASH_LENGTH) : FALSE;
 }
 
 /**
  * Parse the log2 iteration count from a stored hash or setting string.
  */
 function _password_get_count_log2($setting) {
-  $itoa64 = _password_itoa64();
-  return strpos($itoa64, $setting[3]);
+    $itoa64 = _password_itoa64();
+    return strpos($itoa64, $setting[3]);
 }
 
 /**
@@ -209,11 +208,11 @@ function _password_get_count_log2($setting) {
  *   A string containing the hashed password (and a salt), or FALSE on failure.
  */
 function user_hash_password($password, $count_log2 = 0) {
-  if (empty($count_log2)) {
-    // Use the standard iteration count.
-    $count_log2 = variable_get('password_count_log2', DRUPAL_HASH_COUNT);
-  }
-  return _password_crypt('sha512', $password, _password_generate_salt($count_log2));
+    if (empty($count_log2)) {
+        // Use the standard iteration count.
+        $count_log2 = variable_get('password_count_log2', DRUPAL_HASH_COUNT);
+    }
+    return _password_crypt('sha512', $password, _password_generate_salt($count_log2));
 }
 
 /**
@@ -232,33 +231,33 @@ function user_hash_password($password, $count_log2 = 0) {
  *   TRUE or FALSE.
  */
 function user_check_password($password, $account) {
-  if (substr($account->pass, 0, 2) == 'U$') {
-    // This may be an updated password from user_update_7000(). Such hashes
-    // have 'U' added as the first character and need an extra md5().
-    $stored_hash = substr($account->pass, 1);
-    $password = md5($password);
-  }
-  else {
-    $stored_hash = $account->pass;
-  }
+    if (substr($account->pass, 0, 2) == 'U$') {
+        // This may be an updated password from user_update_7000(). Such hashes
+        // have 'U' added as the first character and need an extra md5().
+        $stored_hash = substr($account->pass, 1);
+        $password = md5($password);
+    }
+    else {
+        $stored_hash = $account->pass;
+    }
 
-  $type = substr($stored_hash, 0, 3);
-  switch ($type) {
-    case '$S$':
-      // A normal Drupal 7 password using sha512.
-      $hash = _password_crypt('sha512', $password, $stored_hash);
-      break;
-    case '$H$':
-      // phpBB3 uses "$H$" for the same thing as "$P$".
-    case '$P$':
-      // A phpass password generated using md5.  This is an
-      // imported password or from an earlier Drupal version.
-      $hash = _password_crypt('md5', $password, $stored_hash);
-      break;
-    default:
-      return FALSE;
-  }
-  return ($hash && $stored_hash == $hash);
+    $type = substr($stored_hash, 0, 3);
+    switch ($type) {
+        case '$S$':
+            // A normal Drupal 7 password using sha512.
+            $hash = _password_crypt('sha512', $password, $stored_hash);
+            break;
+        case '$H$':
+        // phpBB3 uses "$H$" for the same thing as "$P$".
+        case '$P$':
+            // A phpass password generated using md5.  This is an
+            // imported password or from an earlier Drupal version.
+            $hash = _password_crypt('md5', $password, $stored_hash);
+            break;
+        default:
+            return FALSE;
+    }
+    return ($hash && $stored_hash == $hash);
 }
 
 /**
@@ -280,12 +279,12 @@ function user_check_password($password, $account) {
  *   TRUE or FALSE.
  */
 function user_needs_new_hash($account) {
-  // Check whether this was an updated password.
-  if ((substr($account->pass, 0, 3) != '$S$') || (strlen($account->pass) != DRUPAL_HASH_LENGTH)) {
-    return TRUE;
-  }
-  // Ensure that $count_log2 is within set bounds.
-  $count_log2 = _password_enforce_log2_boundaries(variable_get('password_count_log2', DRUPAL_HASH_COUNT));
-  // Check whether the iteration count used differs from the standard number.
-  return (_password_get_count_log2($account->pass) !== $count_log2);
+    // Check whether this was an updated password.
+    if ((substr($account->pass, 0, 3) != '$S$') || (strlen($account->pass) != DRUPAL_HASH_LENGTH)) {
+        return TRUE;
+    }
+    // Ensure that $count_log2 is within set bounds.
+    $count_log2 = _password_enforce_log2_boundaries(variable_get('password_count_log2', DRUPAL_HASH_COUNT));
+    // Check whether the iteration count used differs from the standard number.
+    return (_password_get_count_log2($account->pass) !== $count_log2);
 }
