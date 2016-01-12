@@ -1,7 +1,6 @@
 name = santablock
-description = 
+description = Santa Custom Module
 core = 7.x
-package = 
+package = Santa Custom Module
 php = 5.5.12
-version =
-dependencies[] = 
+version = 7.1.x
