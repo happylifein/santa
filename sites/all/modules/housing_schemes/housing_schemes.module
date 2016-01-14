@@ -1,0 +1,32 @@
+<?php
+
+function housing_schemes_services_resource() {
+    $api = array(
+      'housing_schemes' => array(
+        'operations' => array(
+          'retrieve' => array(
+            'help' => 'Retrieves housing schemes info.',
+            'callback' => 'housing_schemes_services_resource_retrieve',
+            'args' => array(
+              array(
+                'name' => 'nid',
+                'type' => 'int',
+                'description' => 'Function to perform',
+                'source' => array(
+                  'path' => '0'
+                ),
+                'optional' => TRUE,
+                'default' => '0',
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    return $api;
+}
+
+function housing_schemes_services_resource_retrieve() {
+    return "welcome";
+}

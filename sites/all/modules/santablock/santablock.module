@@ -74,4 +74,5 @@ function home_page_post_form_submit($form, &$form_state) {
     $newNode->sticky = 0;
     $newNode->language = 'und';
     node_save($newNode);
+    drupal_set_message('Saved successfully');
 }

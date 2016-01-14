@@ -1,0 +1,7 @@
+name = Note Service
+description = Services for the Note content type.
+package = Santa Modules
+dependencies[] = services
+files[] = note_service.inc
+files[] = note_service.module
+core = 7.x
