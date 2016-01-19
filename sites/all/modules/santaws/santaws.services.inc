@@ -41,7 +41,7 @@ function santaws_services_resources() {
             'callback' => 'santaws_get_user_count',
             'access callback' => 'user_access',
             'access arguments' => array('access content'),
-            'access arguments append' => true,
+            'access arguments append' => FALSE,
             'args' => array(array(
                 'name' => 'page',
                 'type' => 'int',
