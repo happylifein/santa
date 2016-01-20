@@ -11,13 +11,13 @@ function santaws_services_resources() {
       'santaws_resources' => array(
         'operations' => array(
           'retrieve' => array(
-            'help' => 'Retrieves a records from node',
+            'help' => 'Retrieves a node',
             'file' => array(
               'type' => 'inc',
               'module' => 'santaws',
               'name' => 'santaws.resource',
             ),
-            'callback' => 'santaws_read_node',
+            'callback' => 'santaws_read_nodes',
             'access callback' => 'user_access',
             'access arguments' => array('access content'),
             'access arguments append' => FALSE,
@@ -25,20 +25,20 @@ function santaws_services_resources() {
               array(
                 'name' => 'id',
                 'type' => 'int',
-                'description' => 'Retrieves a records from node',
+                'description' => 'The id of the node to get',
                 'source' => array('path' => '0'),
                 'optional' => FALSE,
               ),
             ),
           ),
           'index' => array(
-            'help' => 'Retrieves a records from node',
+            'help' => 'Retrieves a listing of node',
             'file' => array(
               'type' => 'inc',
               'module' => 'santaws',
               'name' => 'santaws.resource'
             ),
-            'callback' => 'santaws_read_node',
+            'callback' => 'santaws_read_nodes',
             'access callback' => 'user_access',
             'access arguments' => array('access content'),
             'access arguments append' => FALSE,
