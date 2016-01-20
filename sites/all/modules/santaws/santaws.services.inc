@@ -11,13 +11,13 @@ function santaws_services_resources() {
       'santaws_resources' => array(
         'operations' => array(
           'retrieve' => array(
-            'help' => 'Retrieves a note',
+            'help' => 'Retrieves a records from node',
             'file' => array(
               'type' => 'inc',
               'module' => 'santaws',
               'name' => 'santaws.resource',
             ),
-            'callback' => 'santaws_get_user_count',
+            'callback' => 'santaws_read_node',
             'access callback' => 'user_access',
             'access arguments' => array('access content'),
             'access arguments append' => FALSE,
@@ -25,20 +25,20 @@ function santaws_services_resources() {
               array(
                 'name' => 'id',
                 'type' => 'int',
-                'description' => 'The id of the note to get',
+                'description' => 'Retrieves a records from node',
                 'source' => array('path' => '0'),
                 'optional' => FALSE,
               ),
             ),
           ),
           'index' => array(
-            'help' => 'Retrieves a listing of notes',
+            'help' => 'Retrieves a records from node',
             'file' => array(
               'type' => 'inc',
               'module' => 'santaws',
               'name' => 'santaws.resource'
             ),
-            'callback' => 'santaws_get_user_count',
+            'callback' => 'santaws_read_node',
             'access callback' => 'user_access',
             'access arguments' => array('access content'),
             'access arguments append' => FALSE,
