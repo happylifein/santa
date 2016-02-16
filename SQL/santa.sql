@@ -12,7 +12,7 @@ SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARAsonata-softwCTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
@@ -4275,7 +4275,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`uid`, `name`, `pass`, `mail`, `theme`, `signature`, `signature_format`, `created`, `access`, `login`, `status`, `timezone`, `language`, `picture`, `init`, `data`) VALUES
 (0, '', '', '', '', '', NULL, 0, 0, 0, 0, NULL, '', 0, '', NULL),
 (1, 'root', '$S$DIbd1mFX.5galdRdURWe/20ldjbSw1Mjaju/BCCVWsjn/aSqr.0q', 'bharanikumariyer@gmail.com', '', '', NULL, 1452490325, 1453451571, 1453450590, 1, 'Asia/Kolkata', '', 0, 'bharanikumariyer@gmail.com', 0x623a303b),
-(2, 'bharani', '$S$DoSRhb2CuGosFvau8x2iQ3WsJLZmztYwZnQYLNGlKDs8aavIR9yl', 'bharanikumar.bs@sonata-software.com', '', '', 'filtered_html', 1452512383, 0, 0, 0, 'Asia/Kolkata', '', 0, 'bharanikumar.bs@sonata-software.com', 0x623a303b);
+(2, 'bharani', '$S$DoSRhb2CuGosFvau8x2iQ3WsJLZmztYwZnQYLNGlKDs8aavIR9yl', 'bharanikumariyerphp@gmail.com', '', '', 'filtered_html', 1452512383, 0, 0, 0, 'Asia/Kolkata', '', 0, 'bharanikumariyerphp@gmail.com', 0x623a303b);
 
 -- --------------------------------------------------------
 
