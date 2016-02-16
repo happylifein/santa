@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file
+ * create iq_test table
+ */
+
+/**
+ * Implementation of hook_schema()
+ */
+function iq_test_schema() {
+  $schema['iq_test'] = array(
+    'description' => 'The base table for nodes.',
+    'fields' => array(
+      'id' => array(
+        'description' => 'The primary identifier for a table.',
+        'type' => 'serial',
+        'not null' => TRUE,
+      ),
+      'randid' => array(
+        'description' => 'The random id.',
+        'type' => 'varchar',
+        'length' => 200,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'answer' => array(
+        'description' => 'The final answer.',
+        'type' => 'varchar',
+        'length' => 50,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  return $schema;
+}

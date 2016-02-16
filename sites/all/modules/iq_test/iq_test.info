@@ -1,0 +1,6 @@
+name = IQ Test
+description = IQ test multiform
+package = IQ Test
+version = CTOOLS_MODULE_VERSION
+dependencies[] = ctools
+core = 7.x
