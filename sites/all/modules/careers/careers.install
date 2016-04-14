@@ -1,0 +1,63 @@
+<?php
+/**
+ * @file
+ * Code for the careers install.
+ */
+function careers_schema() {
+    $schema['careers'] = array(
+        'description' => 'The table for storing the jobseeker data.',
+        'fields' => array(
+            'id' => array(
+                'description' => 'The primary identifier for jobseeker.',
+                'type' => 'serial',
+                'not null' => TRUE,
+                'unsigned' => TRUE,
+            ),
+            'name' => array(
+                'description' => 'jobseeker name.',
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => TRUE,
+                'default' => '',
+            ),
+            'email' => array(
+                'description' => 'jobseeker email.',
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => TRUE,
+                'default' => '',
+            ),
+            'path' => array(
+                'description' => 'jobseeker resume location.',
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => TRUE,
+                'default' => '',
+            ),
+            'created' => array(
+                'description' => 'jobseeker updated date time(yyyy-mm-dd H:i:s).',
+                'type' => 'varchar',
+                'mysql_type' => 'DATETIME',
+                'not null' => TRUE,
+            ),
+            'status' => array(
+                'description' => 'jobseeker status(1=Unblock,0=Block).',
+                'type' => 'int',
+                'length' => 1,
+                'not null' => TRUE,
+                'default' => 1,
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+    return $schema;
+}
+
+function careers_install() {
+  // Create my tables.
+  drupal_install_schema('careers');
+}
+function careers_uninstall() {
+  // Drop my tables.
+  drupal_uninstall_schema('careers');
+}

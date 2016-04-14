@@ -1,0 +1,37 @@
+<?php
+/**
+ * @file
+ * Code for the careers page.
+ */
+
+include_once 'careers.inc';
+
+/**
+ * Implements hook_menu()
+ */
+function careers_menu() {
+  $items = array();
+  $items['careers'] = array(
+    'title' => 'Careers',
+    'description' => 'Careers page',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('careers_form'),
+    'access callback' => TRUE
+  );
+  $items['careers/list'] = array(
+    'type' => MENU_SUGGESTED_ITEM, 'title' => 'Job seekers sumited history', 'type' => MENU_NORMAL_ITEM,
+    'description' => 'Job seekers sumited history',
+    'access arguments' => array('view careers list'),
+    'access callback' => 'user_is_logged_in',
+    'page callback' => 'show_careers_list',
+  );
+  return $items;
+}
+
+function careers_permission() {
+  return array(
+    'view careers list' => array(
+      'Title' => 'view careers list'
+    )
+  );
+}

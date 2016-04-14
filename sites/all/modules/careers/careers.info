@@ -1,0 +1,5 @@
+name = careers
+description = job seeker can upload their bio-data
+package = santa group
+core =  7.x
+
